@@ -50,7 +50,7 @@ async function post(req, res) {
     class_name: className,
     class_start_date: classStartDate,
     class_end_date: classEndDate,
-    class_description: classDescription,
+    description: classDescription,
     member_id: memberId,
   } = req.body;
 
