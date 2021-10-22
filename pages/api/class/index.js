@@ -156,7 +156,7 @@ async function get(req, res) {
   }
 
   return RESPOND(res, {
-    classes: qClass.message.rows,
+    datas: qClass.message.rows,
     message: '해당하는 데이터를 성공적으로 반환하였습니다.',
     resultCode: 200,
   });
