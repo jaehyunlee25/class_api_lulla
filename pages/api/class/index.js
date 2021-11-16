@@ -145,11 +145,11 @@ async function get(req, res) {
   }
 
   // #3.5. 조회하고자 하는 classId가 없으면 모든 class의 정보를 찾는다.
-  if (grade <= 2) {
+  if (parseInt(grade, 10) <= 2) {
     qClass = await QTS.gCIBSI.fQuery({ schoolId });
     if (qClass.type === 'error')
       return qClass.onError(res, '3.5.1', 'searching class');
-  } else if (grade <= 5) {
+  } else if (parseInt(grade, 10) <= 5) {
     qClass = await QTS.gCIBMCI.fQuery({ memberClassId });
     if (qClass.type === 'error')
       return qClass.onError(res, '3.5.2', 'searching class');
