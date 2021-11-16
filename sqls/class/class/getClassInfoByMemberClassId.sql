@@ -77,4 +77,4 @@ select
 from 
     class c
 where
-    c.id = '${classId}';
+    c.id = '${memberClassId}';
