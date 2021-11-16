@@ -127,6 +127,12 @@ async function get(req, res) {
 
   // #3.4. 조회하고자 하는 classId가 있으면 해당 classId의 정보를 찾는다.
   let qClass;
+
+  console.log('"================="');
+  console.log(classId);
+  console.log(grade, parseInt(grade, 10));
+  console.log('"================="');
+
   if (classId) {
     qClass = await QTS.gCIBCI.fQuery({ classId });
     if (qClass.type === 'error')
@@ -145,10 +151,6 @@ async function get(req, res) {
   }
 
   // #3.5. 조회하고자 하는 classId가 없으면 모든 class의 정보를 찾는다.
-
-  console.log('"================="');
-  console.log(grade, parseInt(grade, 10));
-  console.log('"================="');
 
   if (parseInt(grade, 10) <= 2) {
     qClass = await QTS.gCIBSI.fQuery({ schoolId });
