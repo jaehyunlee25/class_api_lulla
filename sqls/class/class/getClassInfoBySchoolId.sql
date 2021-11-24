@@ -48,12 +48,12 @@ select
                     u.name username, 
                     u.phone, 
                     d.id, 
-                    d.type 
+                    d.role_type 
                 from demand d
                 left join users u on d.user_id = u.id
                 where 
                     d.class_id = c.id 
-                    and (d.type = 3 or d.type = 4) 
+                    and (d.role_type = 3 or d.role_type = 4) 
                     and d.confirmed is false
                 )tmp
             )
@@ -135,7 +135,7 @@ select
                     END gender,
                     d.id , 
                     d.relation, 
-                    d.type, 
+                    d.role_type, 
                     u.phone  
                 from 
                     demand d
@@ -143,7 +143,7 @@ select
                         left join kid k on d.kid_id = k.id
                 where 
                     d.class_id = c.id 
-                    and (d.type = 5 or d.type = 6) 
+                    and (d.role_type = 5 or d.role_type = 6) 
                     and d.confirmed is false
             )tmp)
         ) guardian_demand),
