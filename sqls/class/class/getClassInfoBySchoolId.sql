@@ -26,7 +26,7 @@ select
                 s.id school_id, 
                 u.id user_id, 
                 u.name username
-            from member m
+            from members m
                 left join file f on m.image_id = f.id 
                 join school_role sr on sr.id = m.school_role_id
                 join users u on u.id = m.user_id
@@ -102,7 +102,7 @@ select
                 s.id school_id, 
                 u.id user_id,
                 m.relation  
-            from member m
+            from members m
                 left join file f on m.image_id = f.id 
                 join school_role sr on sr.id = m.school_role_id 
                 join kid k on m.kid_id = k.id
@@ -121,20 +121,10 @@ select
             from (select 
                     u.id user_id, 
                     u.name username, 
-                    CASE 
-                        WHEN d.kid_id is null THEN d.birth 
-                        WHEN d.kid_id is not null THEN k.birth 
-                    END birth,
-                    CASE 
-                        WHEN d.kid_id is null THEN d.name 
-                        WHEN d.kid_id is not null THEN k.name 
-                    END as name, 
-                    CASE 
-                        WHEN d.kid_id is null THEN d.gender 
-                        WHEN d.kid_id is not null THEN k.gender 
-                    END gender,
-                    d.id , 
-                    d.relation, 
+                    k.birth birth,
+                    k.name  as name, 
+                    k.gender gender,
+                    d.id, 
                     d.role_type, 
                     u.phone  
                 from 

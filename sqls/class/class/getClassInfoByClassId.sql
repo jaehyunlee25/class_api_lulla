@@ -11,7 +11,7 @@ select
             (select m.id member_id, m.nickname member_nickname, m.description member_description, u.phone phone , f.address member_image, 
                 sr.grade member_grade, sr.name member_type, sr.id school_role_id, c.id class_id, c.name class_name, c.start_date class_start_date,
                 c.end_date class_end_date, s.name school_name, s.id school_id, u.id user_id, u.name username
-                from member m 
+                from members m 
                 left join file f on m.image_id = f.id 
                 join school_role sr on sr.id = m.school_role_id
                 join users u on u.id = m.user_id
@@ -25,7 +25,7 @@ select
             (select m.id member_id, m.nickname member_nickname, m.description member_description, u.phone phone,f.address member_image,k.id kid_id,k.name,
                 sr.grade member_grade, sr.name member_type, sr.id school_role_id, c.id class_id, c.name class_name, 
                 c.start_date class_start_date, c.end_date class_end_date, s.name school_name, s.id school_id, u.id user_id
-                , m.relation  from member m 
+                , m.relation  from members m 
                 left join file f on m.image_id = f.id 
                 join school_role sr on sr.id = m.school_role_id 
                 join kid k on m.kid_id = k.id
@@ -46,9 +46,14 @@ select
     (select array_to_json(
         array(
             select row_to_json(tmp) from 
-            (select u.id user_id, u.name username, d.id , d.role_type from demand d
+            (select 
+                u.id user_id, 
+                u.name username, 
+                d.id , 
+                d.role_type 
+            from demand d
                 left join users u on d.user_id = u.id
-                where d.class_id = c.id and (d.role_type = 3 or d.role_type = 4) and d.confirmed is false)tmp
+            where d.class_id = c.id and (d.role_type = 3 or d.role_type = 4) and d.confirmed is false)tmp
         )
     ) teacher_demand),
     (select array_to_json(
@@ -63,13 +68,18 @@ select
     (select array_to_json(
         array(
             select row_to_json(tmp) from 
-            (select u.id user_id, u.name username, CASE WHEN d.kid_id is null THEN d.birth WHEN d.kid_id is not null THEN k.birth END birth,
-                CASE WHEN d.kid_id is null THEN d.name WHEN d.kid_id is not null THEN k.name END as name, 
-                CASE WHEN d.kid_id is null THEN d.gender WHEN d.kid_id is not null THEN k.gender END gender,
-                d.id , d.relation , d.role_type  from demand d
+            (select 
+                u.id user_id, 
+                u.name username, 
+                k.birth birth,
+                k.name as name, 
+                k.gender gender,
+                d.id, 
+                d.role_type  
+            from demand d
                 left join users u on d.user_id = u.id
                 left join kid k on d.kid_id = k.id
-                where d.class_id = c.id and (d.role_type = 5 or d.role_type = 6) and d.confirmed is false )tmp
+            where d.class_id = c.id and (d.role_type = 5 or d.role_type = 6) and d.confirmed is false )tmp
         )
     ) guardian_demand)
 from
