@@ -35,10 +35,10 @@ async function main(req, res) {
   // const userId = qUserId.message;
 
   // #3.1.
-  const { id: classId } = req.query;
+  const { id: schoolId } = req.query;
 
   // #3.2.
-  const qClass = await QTS.getInfo.fQuery({ classId });
+  const qClass = await QTS.getInfo.fQuery({ schoolId });
   if (qClass.type === 'error')
     return qClass.onError(res, '3.4', 'searching class');
 

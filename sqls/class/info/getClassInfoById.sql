@@ -6,4 +6,4 @@ select
 from 
     class
 where 
-    id = '${classId}';
+    school_id = '${schoolId}';
