@@ -1,5 +1,5 @@
 import { RESPOND, ERROR, getUserIdFromToken } from '../../../lib/apiCommon';
-import setBaseURL from '../../../lib/pgConn'; // include String.prototype.fQuery
+import '../../../lib/pgConn'; // include String.prototype.fQuery
 
 const QTS = {
   // Query TemplateS
