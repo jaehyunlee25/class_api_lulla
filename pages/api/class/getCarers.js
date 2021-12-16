@@ -60,7 +60,7 @@ async function main(req, res) {
     schoolId,
     classId,
     grade,
-  } = qMIUI.message;
+  } = qMember.message;
 
   if (grade !== 3)
     return ERROR(res, {
