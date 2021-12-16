@@ -14,6 +14,8 @@ const QTS = {
   gCIBSI: 'getClassInfoBySchoolId',
   gCIBMCI: 'getClassInfoByMemberClassId',
 };
+const baseUrl = 'sqls/class/class'; // 끝에 슬래시 붙이지 마시오.
+
 export default async function handler(req, res) {
   // #1. cors 해제
   res.writeHead(200, {
@@ -75,7 +77,7 @@ async function post(req, res) {
     });
 
   // #3.4.
-  const qClass = await QTS.newClass.fQuery({
+  const qClass = await QTS.newClass.fQuery(baseUrl, {
     className,
     classStartDate,
     classEndDate,
@@ -88,7 +90,7 @@ async function post(req, res) {
   const classId = qClass.message.rows[0].id;
 
   // #3.5.
-  const qCBI = await QTS.getCBI.fQuery({ classId });
+  const qCBI = await QTS.getCBI.fQuery(baseUrl, { classId });
   if (qCBI.type === 'error') return qCBI.onError(res, '3.5', 'searching class');
 
   const classes = qCBI.message.rows[0];
@@ -134,7 +136,7 @@ async function get(req, res) {
   console.log('"================="');
 
   if (classId) {
-    qClass = await QTS.gCIBCI.fQuery({ classId });
+    qClass = await QTS.gCIBCI.fQuery(baseUrl, { classId });
     if (qClass.type === 'error')
       return qClass.onError(res, '3.4', 'searching class by id');
     if (qClass.message.rows.length === 0)
@@ -153,11 +155,11 @@ async function get(req, res) {
   // #3.5. 조회하고자 하는 classId가 없으면 모든 class의 정보를 찾는다.
 
   if (parseInt(grade, 10) <= 2) {
-    qClass = await QTS.gCIBSI.fQuery({ schoolId });
+    qClass = await QTS.gCIBSI.fQuery(baseUrl, { schoolId });
     if (qClass.type === 'error')
       return qClass.onError(res, '3.5.1', 'searching class');
   } else if (parseInt(grade, 10) <= 5) {
-    qClass = await QTS.gCIBMCI.fQuery({ memberClassId });
+    qClass = await QTS.gCIBMCI.fQuery(baseUrl, { memberClassId });
     if (qClass.type === 'error')
       return qClass.onError(res, '3.5.2', 'searching class');
   }

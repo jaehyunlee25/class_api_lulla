@@ -12,6 +12,8 @@ const QTS = {
   getCIBCI: 'getClassInfoByClassId',
   setClass: 'setClass',
 };
+const baseUrl = 'sqls/class/update'; // 끝에 슬래시 붙이지 마시오.
+
 export default async function handler(req, res) {
   // #1. cors 해제
   res.writeHead(200, {
@@ -52,7 +54,7 @@ async function main(req, res) {
   } = req.body;
 
   // #3.2.  class의 존재 유무 체크
-  const qClass = await QTS.getCBI.fQuery({ classId });
+  const qClass = await QTS.getCBI.fQuery(baseUrl, { classId });
   if (qClass.type === 'error')
     return qClass.onError(res, '3.2', 'searching class');
 
@@ -106,7 +108,7 @@ async function main(req, res) {
     });
 
   // #3.6. 반 정보 수정
-  const qSC = await QTS.setClass.fQuery({
+  const qSC = await QTS.setClass.fQuery(baseUrl, {
     classId,
     className,
     classStartDate,
@@ -116,7 +118,7 @@ async function main(req, res) {
   if (qSC.type === 'error') return qSC.onError(res, '3.6', 'updating class');
 
   // #3.7.
-  const qCIBCI = await QTS.getCIBCI.fQuery({ classId });
+  const qCIBCI = await QTS.getCIBCI.fQuery(baseUrl, { classId });
   if (qCIBCI.type === 'error')
     return qCIBCI.onError(res, '3.7', 'searching class');
 

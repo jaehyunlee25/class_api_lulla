@@ -11,6 +11,8 @@ const QTS = {
   getCBI: 'getClassById',
   delClass: 'delClassById',
 };
+const baseUrl = 'sqls/class/delete'; // 끝에 슬래시 붙이지 마시오.
+
 export default async function handler(req, res) {
   // #1. cors 해제
   res.writeHead(200, {
@@ -44,7 +46,7 @@ async function main(req, res) {
   const { class_id: classId, member_id: memberId } = req.body;
 
   // #3.2.  class의 존재 유무 체크
-  const qClass = await QTS.getCBI.fQuery({ classId });
+  const qClass = await QTS.getCBI.fQuery(baseUrl, { classId });
   if (qClass.type === 'error')
     return qClass.onError(res, '3.2', 'searching class');
 
@@ -98,7 +100,7 @@ async function main(req, res) {
     });
 
   // #3.6. 반 정보 수정
-  const qDel = await QTS.delClass.fQuery({ classId });
+  const qDel = await QTS.delClass.fQuery(baseUrl, { classId });
   if (qDel.type === 'error') return qDel.onError(res, '3.6', 'deleting class');
 
   return RESPOND(res, {

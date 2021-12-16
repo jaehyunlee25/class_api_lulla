@@ -5,6 +5,8 @@ const QTS = {
   // Query TemplateS
   getInfo: 'getClassInfoById',
 };
+const baseUrl = 'sqls/class/info'; // 끝에 슬래시 붙이지 마시오.
+
 export default async function handler(req, res) {
   // #1. cors 해제
   res.writeHead(200, {
@@ -38,7 +40,7 @@ async function main(req, res) {
   const { id: schoolId } = req.query;
 
   // #3.2.
-  const qClass = await QTS.getInfo.fQuery({ schoolId });
+  const qClass = await QTS.getInfo.fQuery(baseUrl, { schoolId });
   if (qClass.type === 'error')
     return qClass.onError(res, '3.4', 'searching class');
 
