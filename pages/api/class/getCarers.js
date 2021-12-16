@@ -56,11 +56,7 @@ async function main(req, res) {
   if (qMember.type === 'error')
     return qMember.onError(res, '3.2', 'fatal error while searching member');
 
-  const {
-    schoolId,
-    classId,
-    grade,
-  } = qMember.message;
+  const { schoolId, classId, grade } = qMember.message;
 
   if (grade !== 3)
     return ERROR(res, {
