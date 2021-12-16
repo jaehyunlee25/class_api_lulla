@@ -18,8 +18,6 @@ export default async function handler(req, res) {
   // #2. preflight 처리
   // if (req.method === 'OPTIONS') return RESPOND(res, {});
 
-  // #3. 작업
-  setBaseURL('sqls/class/info'); // 끝에 슬래시 붙이지 마시오.
   try {
     return await main(req, res);
   } catch (e) {
