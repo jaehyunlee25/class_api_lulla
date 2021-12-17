@@ -87,7 +87,7 @@ async function main(req, res) {
 
   return RESPOND(res, {
     kids,
-    message: '해당 반의 보호자 목록을 성공적으로 반환했습니다.',
+    message: '해당하는 원생 목록을 성공적으로 반환했습니다.',
     resultCode: 200,
   });
 }
