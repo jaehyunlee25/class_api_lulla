@@ -8,8 +8,8 @@ select
 	k.gender kid_gender,
 	case 
 		cast(k.gender as text) 
-		when '0' then '남아' 
-		when '1' then '여아' 
+		when '1' then '남아' 
+		when '0' then '여아' 
 	end kid_gender_text,
 	
 	m.id member_id,
