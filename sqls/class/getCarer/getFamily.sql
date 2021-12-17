@@ -1,8 +1,7 @@
 select 	
 	m.id member_id,
 	sr.grade member_grade,
-	sr.name member_relation,	
-	m.nickname member_name,	
+	sr.name member_relation,
 	c.id class_id,
 	c.name class_name	
 from 
