@@ -47,7 +47,7 @@ async function main(req, res) {
 
   // #3.2 userId와 memberId가 같은 멤버 조회
   EXEC_STEP = '3.2.1'; // #3.2.1 memberId 유효성 점검
-  const { member_id: memberId, classId, search } = req.body;
+  const { member_id: memberId, class_id: classId, search } = req.body;
 
   EXEC_STEP = '3.2'; // #3.2 member 검색
   const qMember = await POST(
